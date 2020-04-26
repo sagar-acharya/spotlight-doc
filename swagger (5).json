@@ -1,0 +1,495 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample Business Portal API. For this sample, you can use the api key `api-key` to test the authorization filters.",
+    "version": "1.0.0",
+    "title": "Business Portal API's",
+    "termsOfService": "https://heroic.com/terms-conditions",
+    "contact": {
+      "email": "support@heroic.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "api-test.sagaracharya.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Breached Account",
+      "description": "Getting all public breaches for an account."
+    },
+    {
+      "name": "Breaches",
+      "description": "Getting all breached sites in the system."
+    },
+    {
+      "name": "Data Classes",
+      "description": "Getting all dataclasses in the system."
+    },
+    {
+      "name": "Search",
+      "description": "Getting all private breach data in the system."
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/breachedaccount": {
+      "get": {
+        "tags": [
+          "Breached Account"
+        ],
+        "summary": "Getting breaches for an account",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Account Type Filter, Available values are one of these email, emaildomain, phonenumber, username, ipaddress",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "email",
+                "emaildomain",
+                "phonenumber",
+                "username",
+                "ipaddress"
+              ],
+              "default": "email"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Account name as per selected account type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        },
+        "operationId": ""
+      }
+    },
+    "/breaches": {
+      "get": {
+        "tags": [
+          "Breaches"
+        ],
+        "summary": "Getting all breached sites in system",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/dataclasses": {
+      "get": {
+        "tags": [
+          "Data Classes"
+        ],
+        "summary": "Getting all dataclasses system",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/search/email": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Getting all breach account data for an email",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Getting data for an email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/search/emaildomain": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Getting all breach account data for an emaildomain",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Getting data for an emaildomain",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/search/phonenumber": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Getting all breach account data for a phone number",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Getting data for a phone number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/search/username": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Getting all breach account data for an username",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Getting data for an username",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    },
+    "/search/ipaddress": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Getting all breach account data for an ipaddress",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "description": "Authentication API Token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Getting data for an ipaddress",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging_token",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value will be received ifirst search response data",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "paging",
+            "in": "query",
+            "description": "Optional Field Required For pagination, value is either next OR prev, pass value according to where you want to traverse the pagination.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Invalid authentication credentials"
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Something went wrong"
+          }
+        }
+      }
+    }
+  }
+}
